@@ -1,0 +1,19 @@
+.filterLabel {
+  display: flex;
+  flex-direction: column;
+
+  .filterText {
+    margin-bottom: 10px;
+  }
+}
+
+.filterInput {
+  padding: 10px;
+  width: 250px;
+  border: none;
+  outline: none;
+
+  background-color: inherit;
+
+  border-bottom: 1px solid black;
+}
