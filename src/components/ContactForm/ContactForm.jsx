@@ -1,40 +1,34 @@
-import { Component } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 
 import styles from "./ContactForm.module.scss";
 
-class ContactForm extends Component {
-  static propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-  };
-
-  state = {
+const ContactForm = ({ onSubmit }) => {
+  const [state, setState] = useState({
     name: "",
     number: "",
-  };
+  });
 
-  handleChange = (event) => {
+  const { name, number } = state;
+
+  const handleChange = (event) => {
     const { name, value } = event.currentTarget;
-    this.setState({ [name]: value });
+    setState({ ...state, [name]: value });
   };
 
-  handleFormSubmit = (event) => {
+  const handleFormSubmit = event => {
     event.preventDefault();
-    const { name, number } = this.state;
 
-    this.props.onSubmit(name, number);
-    this.reset();
+    onSubmit(name, number);
+    reset();
   };
 
-  reset = () => {
-    this.setState({ name: "", number: "" });
+  const reset = () => {
+    setState({ name: '', number: '' });
   };
-
-  render() {
-    const { name, number } = this.state;
 
     return (
-      <form className={styles.ContactForm} onSubmit={this.handleFormSubmit}>
+      <form className={styles.ContactForm} onSubmit={handleFormSubmit}>
         <label className={styles.formLabel}>
           <span className={styles.formText}>Name</span>
           <input
@@ -43,7 +37,7 @@ class ContactForm extends Component {
             placeholder="Enter contact's name"
             name="name"
             value={name}
-            onChange={this.handleChange}
+            onChange={handleChange}
           />
         </label>
         <label className={styles.formLabel}>
@@ -54,7 +48,7 @@ class ContactForm extends Component {
             placeholder="Enter contact's number"
             name="number"
             value={number}
-            onChange={this.handleChange}
+            onChange={handleChange}
           />
         </label>
 
@@ -64,6 +58,9 @@ class ContactForm extends Component {
       </form>
     );
   }
-}
+
+ContactForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export default ContactForm;
